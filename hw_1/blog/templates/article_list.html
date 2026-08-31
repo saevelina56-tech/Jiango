@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% if category %}{{ category.name }}{% else %}Все статьи{% endif %}</title>
+<head/>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>
+                {% if category %}
+                    {{ category.name }}
+                {% else %}
+                    Все статьи
+                {% endif %}
+            </h1>
+            {% if category %}
+                <div class="subtitle">{{ category.description|default:"Описание отсутствует" }}</div>
+            {% endif %}
+        </div>
+        
+        <div class="nav">
+            <a href="/">Главная</a>
+            <a href="/articles/">Все статьи</a>
+            <a href="/articles/stats/">Статистика</a>
+            <a href="/admin/">Админка</a>
+        </div>
+        
+        <div>
+            <form action="/articles/search/" method="GET">
+                <input type="text" name="q" placeholder="Поиск по заголовку..." value="{{ query|default:'' }}">
+                <button type="submit">Найти</button>
+            </form>
+        </div>
+        
+        <div>
+            {% if articles %}
+            <p>Найдено статей: {{ articles|length }}</p>
+            {% for article in articles %}
+                <div>
+                    <div>
+                        <a href="#">{{ article.title }}</a>
+                    </div>
+                    <div>
+                        {% if article.category %}
+                            <span>{{ article.category.name }}</span>
+                        {% endif %}
+                        {{ article.published_date|date:"d.m.Y H:i" }}
+                        { article.author.username }
+                    </div>
+                    <div>
+                        {article.content}
+                    </div>
+            {% endfor %}
+            {% endif %}

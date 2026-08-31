@@ -1,0 +1,51 @@
+<body>
+    <h1>Добро пожаловать в мой блог!</h1>
+    <h1>Блог</h1>
+    <div class="nav">
+        <a href="/">Главная</a>
+        <a href="/articles/">Все статьи</a>
+        <a href="/articles/stats/">Статистика</a>
+        <a href="/books/">Книги</a>
+        <a href="/admin/">Админка</a>
+        <a href="/create/">Создать статью</a>
+    </div>
+
+    {% for article in articles %}
+    <article>
+        <h2>{{ article.title }}</h2>
+        <p>
+            Автор: 
+            {% if article.author %}
+                {{ article.author.username }}
+            {% else %}
+                Неизвестен
+            {% endif %}
+            | Дата: {{ article.published_date|date:"d.m.Y" }}
+        </p>
+
+        <p>{{ article.content }}</p>
+
+        <p>
+            Теги: 
+            {% for tag in article.tags.all %}
+                <span>#{{ tag.name }}</span>
+            {% empty %} 
+                без тегов 
+            {% endfor %}
+        </p>
+        <p>
+            Категория: 
+            {% if article.category %}
+                <span>
+                    {{ article.category.name }}
+                </span>
+            {% else %}
+                без категории
+            {% endif %}
+        </p>
+    </article>
+    <hr />
+    {% empty %}
+        <p>Пока нет опубликованных статей.</p>
+    {% endfor %}
+</body>
