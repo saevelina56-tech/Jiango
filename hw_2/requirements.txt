@@ -1,0 +1,7 @@
+Django
+Pillow
+python-dotenv
+pytz
+django-extra-validators
+pytest
+pytest-django
