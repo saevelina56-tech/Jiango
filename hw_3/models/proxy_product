@@ -1,0 +1,8 @@
+from .main import Product
+
+class ProductProxy(Product):
+    class Meta:
+        proxy = True
+        ordering = ['-price']  
+        verbose_name = "Прокси товар"
+        verbose_name_plural = "Прокси товары"
