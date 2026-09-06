@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Новости{% endblock %}</title>
+</head>
+<body>
+    <div>
+        <div>
+            <a href="{% url 'news:list' %}">Главная</a>
+            {% if user.is_authenticated %}
+                <span>Привет, {{ user.username }}</span>
+                <a href="{% url 'news:create' %}">Создать новость</a>
+                <a href="{% url 'admin:logout' %}">Выйти</a>
+            {% else %}
+                <a href="{% url 'admin:login' %}">Войти</a>
+            {% endif %}
+        </div>
+    </div>
+    
+    <div>
+        {% block content %}{% endblock %}
+    </div>
+</body>
+</html>
