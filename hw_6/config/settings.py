@@ -15,7 +15,17 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'storages',
     'shop',
+    'rest_framework',
+    'django_filters',
 ]
+
+REST_FRAMEWORK = {
+    'DEFAULT_PAGINATION_CLASS': 'shop.api.pagination.StandardPagination',
+    'PAGE_SIZE': 10,
+    'DEFAULT_FILTER_BACKENDS': [
+        'django_filters.rest_framework.DjangoFilterBackend',
+    ],
+}
 
 if os.getenv('USE_S3') == 'True':
     DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
